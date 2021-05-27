@@ -29,8 +29,20 @@ function deconstruct(createElement, level, components, initialData) {
  * @returns Virtual dom element
  */
 export default function render(createElement, page, components, initialData) {
-  if (!page || !page.layout) {
+  if (!createElement || typeof createElement !== 'function') {
+    throw new Error('Invalid createElement argument');
+  }
+
+  if (!page || typeof page !== 'object' || !page.layout) {
     throw new Error('Failed to render page, invalid "page" syntax.');
+  }
+
+  if (!components || typeof components !== 'object') {
+    throw new Error('Invalid components argument');
+  }
+
+  if (!initialData || typeof initialData !== 'object') {
+    throw new Error('Invalid initialData argument');
   }
 
   const rootElement = createElement(

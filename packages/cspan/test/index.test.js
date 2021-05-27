@@ -41,3 +41,13 @@ test('Renders the tree as expected', () => {
 
   expect(JSON.stringify(component.toJSON())).toEqual(`{"type":"div","props":{},"children":[{"type":"div","props":{},"children":[{"type":"h1","props":{},"children":["Test title"]},{"type":"div","props":{},"children":[{"type":"p","props":{},"children":["Lorem ipsum dolor sit amet, consectetur adipiscing elit"]}]}]}]}`);
 });
+
+test('Throws error for invalid page data', () => {
+  expect(() => cspanRenderer()).toThrow();
+  expect(() => cspanRenderer(React.createElement)).toThrow();
+  expect(() => cspanRenderer(React.createElement, {})).toThrow();
+  expect(() => cspanRenderer(React.createElement, { layout: [] })).toThrow();
+  expect(() => cspanRenderer(React.createElement, { layout: [] }, '')).toThrow();
+  expect(() => cspanRenderer(React.createElement, { layout: [] }, {})).toThrow();
+  expect(() => cspanRenderer(React.createElement, { layout: [] }, {}, 1)).toThrow();
+});
