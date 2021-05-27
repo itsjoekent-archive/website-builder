@@ -1,0 +1,30 @@
+{
+  "name": "website-builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsjoekent/website-builder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itsjoekent/website-builder/issues"
+  },
+  "homepage": "https://github.com/itsjoekent/website-builder#readme",
+  "dependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "babel-jest": "^27.0.1",
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.13.13",
+    "jest": "^27.0.1",
+    "react-test-renderer": "^17.0.2"
+  }
+}
