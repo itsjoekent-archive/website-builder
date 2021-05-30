@@ -11,6 +11,7 @@ services:
       - OBJECT_STORAGE_ENDPOINT=http://object-storage:9000
       - OBJECT_STORAGE_ACCESS_KEY=wealth-inequality
       - OBJECT_STORAGE_SECRET_KEY=wealth-tax
+      - OBJECT_STORAGE_PATH_STYLE=true
     depends_on:
       - object-storage
   object-storage:
