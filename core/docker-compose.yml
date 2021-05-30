@@ -1,23 +1,27 @@
-version: "3.9"
+version: '3.9'
 
 services:
   web:
     build: .
     ports:
-      - "5000:5000"
+      - '5000:5000'
     volumes:
       - blockStorageEmulator:/dev/storage
+      - ./src:/usr/src/app/src:cached
     environment:
       - OBJECT_STORAGE_ENDPOINT=http://object-storage:9000
       - OBJECT_STORAGE_ACCESS_KEY=wealth-inequality
       - OBJECT_STORAGE_SECRET_KEY=wealth-tax
       - OBJECT_STORAGE_PATH_STYLE=true
+      - SSL_KEY_FILE=localhost.key
+      - SSL_CERT_FILE=localhost.crt
+      - PORT=5000
     depends_on:
       - object-storage
   object-storage:
     image: minio/minio
     ports:
-      - "9000:9000"
+      - '9000:9000'
     environment:
       MINIO_ROOT_USER: wealth-inequality
       MINIO_ROOT_PASSWORD: wealth-tax
@@ -26,7 +30,7 @@ services:
       - objectStorageEmulator:/data
     command: server /data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://object-storage:9000/minio/health/live"]
+      test: ['CMD', 'curl', '-f', 'http://object-storage:9000/minio/health/live']
       interval: 30s
       timeout: 20s
       retries: 3
@@ -45,10 +49,10 @@ services:
   cdn:
     image: caddy:2-alpine
     ports:
-      - "80:80"
-      - "443:443"
-      - "1776:1776"
-      - "1777:1777"
+      - '80:80'
+      - '443:443'
+      - '1776:1776'
+      - '1777:1777'
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./certificates:/etc/caddy/certificates

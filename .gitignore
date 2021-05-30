@@ -7,3 +7,5 @@ tmp
 certificates
 
 .env*
+
+.DS_Store

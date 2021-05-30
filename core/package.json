@@ -1,15 +1,17 @@
 {
   "name": "core",
-  "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "PORT=5000 node src/api/index.js | pino-pretty",
+    "start": "nodemon src/api/index.js | pino-pretty",
     "build-cert": "sudo ./generate-ssl.sh localhost",
     "test": "jest"
   },
-  "author": "",
-  "license": "ISC",
+  "nodemonConfig": {
+    "ignore": [
+      "certificates",
+      "tmp"
+    ]
+  },
   "dependencies": {
     "aws-sdk": "^2.918.0",
     "express": "^4.17.1",
@@ -22,7 +24,10 @@
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.13.13",
     "jest": "^27.0.3",
+    "lint-staged": "^11.0.0",
+    "nodemon": "^2.0.7",
     "pino-pretty": "^5.0.1",
+    "prettier": "^2.3.0",
     "react-test-renderer": "^17.0.2"
   }
 }
