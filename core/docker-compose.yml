@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - blockStorageEmulator:/dev/storage
+    environment:
+      - OBJECT_STORAGE_ENDPOINT=http://object-storage:9000
+      - OBJECT_STORAGE_ACCESS_KEY=wealth-inequality
+      - OBJECT_STORAGE_SECRET_KEY=wealth-tax
+    depends_on:
+      - object-storage
+  object-storage:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ROOT_USER: wealth-inequality
+      MINIO_ROOT_PASSWORD: wealth-tax
+      MINIO_REGION_NAME: us-east-1
+    volumes:
+      - objectStorageEmulator:/data
+    command: server /data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://object-storage:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+  setup-object-storage:
+    image: minio/mc
+    depends_on:
+      - object-storage
+    entrypoint: >
+      /bin/sh -c "a
+      /usr/bin/mc config host add objectStorageHost http://object-storage:9000 wealth-inequality wealth-tax;
+      /usr/bin/mc rm -r --force objectStorageHost/www;
+      /usr/bin/mc mb objectStorageHost/www;
+      /usr/bin/mc policy set public objectStorageHost/www;
+      exit 0;
+      "
+  cdn:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+      - "1776:1776"
+      - "1777:1777"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./certificates:/etc/caddy/certificates
+      - objectStorageEmulator:/data
+    depends_on:
+      - object-storage
+volumes:
+  blockStorageEmulator: {}
+  objectStorageEmulator: {}

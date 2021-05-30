@@ -1,0 +1,5 @@
+localhost:1776
+
+tls /etc/caddy/certificates/localhost.crt /etc/caddy/certificates/localhost.key
+root * /data/www
+file_server

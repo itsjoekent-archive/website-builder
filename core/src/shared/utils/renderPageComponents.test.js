@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import cspanRenderer from '../src';
+import renderPageComponents from './renderPageComponents';
 
 test('Renders the tree as expected', () => {
-  const RootElement = cspanRenderer(
+  const RootElement = renderPageComponents(
     React.createElement,
     {
       layout: [
@@ -43,7 +43,7 @@ test('Renders the tree as expected', () => {
 });
 
 test('Renders the tree with a wrapper component as expected', () => {
-  const RootElement = cspanRenderer(
+  const RootElement = renderPageComponents(
     React.createElement,
     {
       layout: [
@@ -83,11 +83,11 @@ test('Renders the tree with a wrapper component as expected', () => {
 });
 
 test('Throws error for invalid page data', () => {
-  expect(() => cspanRenderer()).toThrow();
-  expect(() => cspanRenderer(React.createElement)).toThrow();
-  expect(() => cspanRenderer(React.createElement, {})).toThrow();
-  expect(() => cspanRenderer(React.createElement, { layout: [] })).toThrow();
-  expect(() => cspanRenderer(React.createElement, { layout: [] }, '')).toThrow();
-  expect(() => cspanRenderer(React.createElement, { layout: [] }, {})).toThrow();
-  expect(() => cspanRenderer(React.createElement, { layout: [] }, {}, 1)).toThrow();
+  expect(() => renderPageComponents()).toThrow();
+  expect(() => renderPageComponents(React.createElement)).toThrow();
+  expect(() => renderPageComponents(React.createElement, {})).toThrow();
+  expect(() => renderPageComponents(React.createElement, { layout: [] })).toThrow();
+  expect(() => renderPageComponents(React.createElement, { layout: [] }, '')).toThrow();
+  expect(() => renderPageComponents(React.createElement, { layout: [] }, {})).toThrow();
+  expect(() => renderPageComponents(React.createElement, { layout: [] }, {}, 1)).toThrow();
 });
