@@ -1,5 +1,6 @@
 const logger = require('./utils/logger');
-const ObjectStorage = require('./services/ObjectStorage');
+
+logger.debug('Starting up...');
 
 require('./routes');
 
@@ -12,3 +13,8 @@ require('./routes');
 //     }, console.log);
 //   }, 5000);
 // })();
+
+// download material-ui
+// create webpack build
+// render page to cdn
+// hydrate page in browser

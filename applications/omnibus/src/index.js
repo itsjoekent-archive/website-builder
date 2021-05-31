@@ -13,7 +13,7 @@ const app = express();
 
 /**
  * Get the unique bundle hash name for a given set of packages.
- * 
+ *
  * @param {Array<String>} packages Array of package identifiers
  * @returns {String} bundle hash name
  */
@@ -26,7 +26,7 @@ function getBundleHash(packages) {
 
 /**
  * Check if a bundle exists on disk
- * 
+ *
  * @param {String} bundleHashId
  * @returns {Boolean}
  */
@@ -36,8 +36,8 @@ async function checkIfBundleExists(bundleHashId) {
 
 /**
  * Check the status of a bundle build job.
- * 
- * @param {String} bundleHashId 
+ *
+ * @param {String} bundleHashId
  * @returns {Object<String:Boolean>} Key is one of the following, "hasError", "inProgress", "hasCompleted"
  */
 async function getJobStatus(bundleHashId) {
@@ -49,7 +49,7 @@ async function getJobStatus(bundleHashId) {
 
 /**
  * Schedule a set of packages to be assembled into a Webpack bundle.
- * 
+ *
  * @param {String} bundleHashId Hash id pertaining to this bundle
  * @param {Array<String>} packages Array of package identifiers
  */
@@ -145,5 +145,5 @@ app.get('/job/:bundleHashId', async (req, res) => {
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
-  console.log(`Omnibus listening on port ${PORT}`);  
+  console.log(`Omnibus listening on port ${PORT}`);
 });
